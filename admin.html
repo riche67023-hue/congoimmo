@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Immocongo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .admin-container{padding-top:86px;}
+    .hidden{display:none}
+    .panel{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:18px;
+    }
+    .admin-grid{display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start}
+    @media (max-width: 980px){ .admin-grid{grid-template-columns:1fr} }
+
+    .fineprint{color:var(--muted); font-weight:800; font-size:13px}
+
+    .login-logo{display:flex; justify-content:center; margin-bottom:14px}
+    .login-logo img{width:72px; height:72px; border-radius:22px; background:#fff; padding:6px; border:1px solid rgba(255,255,255,.16)}
+
+    .thumb{height:140px; background: rgba(0,0,0,.20); border-bottom: 1px solid rgba(255,255,255,.08)}
+    .thumb img{width:100%; height:100%; object-fit:cover}
+
+    .message-card{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:16px;
+    }
+    .message-card h4{margin:0 0 6px; font-size:14px}
+    .message-card p{margin:0; color:var(--muted); font-weight:750; font-size:13.5px}
+
+    .btn-secondary{background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);}
+    .btn-xs{padding:9px 12px; font-size:13px; border-radius:12px}
+    .btn-sm{padding:10px 12px; font-size:13px; border-radius:12px}
+
+    .announcements-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .announcements-grid{grid-template-columns: 1fr;}
+    }
+
+    .announcement-card{background: var(--panel); border:1px solid #E8D9B5; border-radius: 12px; overflow:hidden; min-height: 220px; display:flex; flex-direction:column; box-shadow: 0 2px 15px rgba(0,0,0,0.1);}
+
+    .admin-card-media{position:relative;}
+    .admin-card-type-pill{position:absolute; left:12px; top:12px; z-index:2; padding:7px 10px; border-radius:999px; font-weight:900; font-size:12px; color:#fff; border:1px solid rgba(255,255,255,.18)}
+    .admin-card-type-pill.vente{background: rgba(201,168,76,.95); border-color: rgba(201,168,76,.75)}
+    .admin-card-type-pill.location{background: rgba(34,197,94,.95); border-color: rgba(34,197,94,.6)}
+
+    .announcement-card .thumb{height:200px;}
+    .announcement-card .thumb img{width:100%; height:100%; object-fit:cover}
+
+    .admin-card-content{padding:12px 12px 14px; display:flex; flex-direction:column; gap:10px; flex:1}
+
+    .announcement-card .announcement-title{margin:0; font-size:16px; font-weight:900;}
+
+    .admin-card-line{display:flex; gap:10px; justify-content:space-between; align-items:center;}
+    .admin-card-location{color: var(--muted); font-weight:900; font-size:13.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+    .admin-card-price{color: var(--text); font-weight:900; font-size:13.5px; white-space:nowrap}
+
+    .announcement-card .announcement-desc{margin:0; color:var(--muted); font-weight:750; font-size:13.5px; flex:0}
+    .admin-desc-2lines{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis}
+
+    .admin-card-badges{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+    .admin-card-status label{display:block; font-size:12px; color: rgba(107,107,107,1); font-weight:900; margin-bottom:6px}
+    .admin-card-status select{width:100%; background: rgba(248,245,239,.85); border:1px solid rgba(232,217,181,.95); border-radius: 14px; padding:10px 12px; font-family:inherit; font-weight:800; color: var(--text)}
+
+    .admin-card-actions{display:flex; gap:10px; flex-wrap:nowrap}
+    .admin-card-actions .btn{flex:1; justify-content:center}
+
+    .admin-card-actions .btn.secondary{flex:1; justify-content:center}
+
+
+    .ann-pill{
+      display:inline-flex; align-items:center;
+      padding:6px 10px; border-radius:999px;
+      font-weight:900; font-size:12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      width:fit-content;
+    }
+    .ann-pill.location{background: rgba(34,197,94,.16); border-color: rgba(34,197,94,.30)}
+    .ann-pill.vente{background: rgba(26,86,255,.16); border-color: rgba(26,86,255,.30)}
+  </style>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Retour au site">
+        <div class="brand-logo" aria-hidden="true"><img src="image Immocongo.jpeg" alt="" /></div>
+      </a>
+
+      <div class="nav-right">
+        <a class="btn btn-outline" href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Retour au site</a>
+        <button class="btn btn-secondary" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Déconnexion</button>
+
+        <button class="burger" type="button" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    <div class="container">
+      <section class="panel" id="loginPanel">
+        <div class="login-logo"><img src="image Immocongo.jpeg" alt="" /></div>
+        <h2 style="margin:0 0 8px">Espace administrateur</h2>
+        <div class="fineprint" style="margin-bottom:14px">Connexion requise</div>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="adminPassword">Mot de passe</label>
+            <input id="adminPassword" type="password" required placeholder="Mot de passe" />
+            <div class="fineprint" style="margin-top:8px">Mot de passe : <b>immocongo2025</b></div>
+          </div>
+
+          <div class="form-actions" style="margin-top:10px">
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-lock" aria-hidden="true"></i> Se connecter</button>
+            <div id="loginStatus" class="fineprint" aria-live="polite"></div>
+          </div>
+        </form>
+      </section>
+
+      <section class="hidden" id="adminPanel" style="margin-top:14px">
+        <div class="section-title" style="margin-bottom:14px">
+          <h2>Gestion des annonces & messages</h2>
+          <p>localStorage partagé</p>
+        </div>
+
+        <div class="admin-grid">
+          <div class="panel">
+            <h3 style="margin:0 0 10px">Ajouter / Modifier une annonce</h3>
+
+            <form id="announcementForm">
+              <input type="hidden" id="editId" />
+
+              <div class="field">
+                <label for="annTitle">Titre du bien</label>
+                <input id="annTitle" required type="text" placeholder="Ex: Appartement 3 chambres" />
+              </div>
+
+              <div class="field">
+                <label for="annType">Type</label>
+                <select id="annType" required>
+                  <option value="vente">Vente</option>
+                  <option value="location">Location</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="annDesc">Description</label>
+                <textarea id="annDesc" required placeholder="Décrivez le bien..."></textarea>
+              </div>
+
+              <div class="field">
+                <label for="annArea">Quartier</label>
+                <select id="annArea" required>
+                  <option value="">Choisir...</option>
+                  <option>Bacongo</option>
+                  <option>Makélékélé</option>
+                  <option>Moungali</option>
+                  <option>Ouenzé</option>
+                  <option>Talangaï</option>
+                  <option>Poto-Poto</option>
+                  <option>Mfilou</option>
+                  <option>Madibou</option>
+                  <option>Centre-ville</option>
+                  <option>Plateau des 15 ans</option>
+                  <option>Gombe</option>
+                  <option>Djiri</option>
+                  <option>Mikalou</option>
+                  <option>Kinsoundi</option>
+                  <option>Nganga-Lingolo</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="annPrice">Prix en XAF</label>
+                <input id="annPrice" required type="text" placeholder="Ex: 50 000 000" />
+              </div>
+
+              <div class="field">
+                <label for="annImageFiles">Choisir plusieurs images (max 10)</label>
+                <input id="annImageFiles" type="file" accept="image/*" multiple />
+
+                <input type="hidden" id="annImagesDataUrl" />
+
+                <div class="fineprint" style="margin-top:8px">Les images sont converties en base64 et stockées dans localStorage. Taille max totale ~5MB.</div>
+
+                <div style="margin-top:12px;">
+                  <div class="fineprint" style="margin-bottom:6px">Prévisualisation :</div>
+                  <div id="annImagesPreviewGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
+                    <div id="annImagesPreviewEmpty" style="grid-column:1/-1; padding:12px; color: rgba(0,0,0,.45); font-weight:900; text-align:center; background: rgba(0,0,0,.06); border-radius: 14px; border:1px solid rgba(255,255,255,.10);">
+                      Aucune image
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="annStatus">Statut de l'annonce</label>
+                <select id="annStatus" required>
+                  <option value="Disponible" selected>Disponible</option>
+                  <option value="Réservé">Réservé</option>
+                  <option value="Vendu">Vendu</option>
+                </select>
+              </div>
+
+              <div class="fineprint" style="margin-top:-6px; color:var(--muted); font-weight:850">Max 10 photos par annonce.</div>
+
+              <div class="form-actions" style="margin-top:12px">
+                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Enregistrer</button>
+                <button class="btn btn-outline" type="button" id="cancelEditBtn">Annuler</button>
+                <div id="formStatus" class="fineprint" aria-live="polite"></div>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin:0 0 10px">Messages reçus</h3>
+            <div class="fineprint" style="margin-bottom:12px">Ils apparaissent ici depuis le formulaire index.html</div>
+            <div class="messages" id="messagesList" style="display:grid; gap:12px"></div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="section-title" style="margin:0 0 10px">
+            <h2 style="font-size:20px">Annonces</h2>
+            <p>Cliquez “Modifier” ou “Supprimer”</p>
+          </div>
+          <div class="announcements-grid" id="announcementsGrid"></div>
+          <div id="emptyState" class="fineprint" style="margin-top:12px">Aucune annonce pour le moment.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
+

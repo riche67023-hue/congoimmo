@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Immocongo — Agence immobilière à Brazzaville</title>
+  <meta name="description" content="Immocongo, votre agence immobilière premium basée à Brazzaville. Consultez nos biens et contactez-nous." />
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-inner">
+      <a class="brand" href="#accueil" aria-label="Immocongo">
+        <div class="brand-logo" aria-hidden="true">
+          <img src="image Immocongo.jpeg" alt="" />
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigation">
+        <a href="#accueil">Accueil</a>
+        <a href="#apropos">À propos</a>
+        <a href="#biens">Nos biens</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="btn btn-outline" href="#contact">
+          <i class="fa-solid fa-phone"></i>
+          Nous contacter
+        </a>
+        <a class="btn btn-primary" href="#contact" id="visitRequestTop">
+          <i class="fa-solid fa-bolt"></i>
+          Demander une visite
+        </a>
+
+        <button class="burger" type="button" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <div class="mobile-links container">
+        <a href="#accueil">Accueil</a>
+        <a href="#apropos">À propos</a>
+        <a href="#biens">Nos biens</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="mobile-cta container">
+        <a class="btn btn-outline" href="#contact">
+          <i class="fa-solid fa-phone"></i>
+          Nous contacter
+        </a>
+        <a class="btn btn-primary" href="#contact">
+          <i class="fa-solid fa-bolt"></i>
+          Demander une visite
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="accueil">
+    <!-- HERO -->
+    <section class="hero" aria-label="Présentation">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="overlay"></div>
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600" alt="" />
+      </div>
+
+      <div class="container hero-inner">
+        <div>
+          <div class="hero-kicker">IMMOBILIER PREMIUM • BRAZZAVILLE</div>
+          <h1>Trouvez la Maison de vos Rêves à Brazzaville</h1>
+          <p class="hero-lead">Immocongo, votre agence immobilière de confiance au Congo</p>
+
+          <!-- Recherche hero -->
+          <div class="hero-search" style="margin: 18px 0 8px">
+            <div class="search-row" style="max-width: 740px; margin: 0 auto">
+              <input
+                id="heroSearchInput"
+                class="input"
+                type="text"
+                placeholder="Rechercher un bien, un quartier..."
+                autocomplete="off"
+              />
+              <button class="btn-search" id="heroSearchBtn" type="button" aria-label="Rechercher">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#biens">
+              <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
+              Voir nos biens
+            </a>
+            <a class="btn btn-outline" href="#contact">
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+              Nous contacter
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Points forts">
+          <div style="font-weight:900; font-size:16px; margin-bottom:6px">Pourquoi Immocongo ?</div>
+          <div class="badges">
+            <div class="badge">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <div>
+                <b>Sécurité 24h/24</b>
+                <span>Accompagnement & suivi</span>
+              </div>
+            </div>
+            <div class="badge">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <div>
+                <b>Brazzaville</b>
+                <span>Quartiers & opportunités</span>
+              </div>
+            </div>
+            <div class="badge">
+              <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+              <div>
+                <b>Service exceptionnel</b>
+                <span>Réactivité & clarté</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="apropos" aria-label="À propos">
+      <div class="container">
+        <div class="two-col">
+          <div>
+            <div class="section-title">
+              <h2>Le Premier Marché Immobilier de Brazzaville</h2>
+            </div>
+            <p style="margin:0; color:var(--muted); font-weight:700; font-size:15px">
+              Chez Immocongo, nous simplifions l’immobilier grâce à une plateforme moderne et une équipe dédiée.
+              Notre mission : vous aider à trouver, acheter ou louer plus sereinement — avec confiance et transparence.
+            </p>
+
+            <div class="advantages" style="margin-top:18px">
+              <div class="adv">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                <div>
+                  <b>Sécurité 24h/24</b>
+                  <span>Vérification & fiabilité</span>
+                </div>
+              </div>
+              <div class="adv">
+                <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                <div>
+                  <b>Design moderne</b>
+                  <span>Expérience premium</span>
+                </div>
+              </div>
+              <div class="adv">
+                <i class="fa-solid fa-tree" aria-hidden="true"></i>
+                <div>
+                  <b>Beau cadre de vie</b>
+                  <span>Quartiers recherchés</span>
+                </div>
+              </div>
+              <div class="adv">
+                <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+                <div>
+                  <b>Service exceptionnel</b>
+                  <span>Conseils & accompagnement</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:18px">
+              <a class="btn btn-primary" href="#services">
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                En savoir plus
+              </a>
+            </div>
+          </div>
+
+          <div class="about-image" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTIQUES -->
+    <section class="stats-section" aria-label="Statistiques">
+      <div class="stats-wrap">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="num counter" data-counter data-to="150">0</div>
+              <div class="label">150+ Biens disponibles</div>
+            </div>
+            <div class="stat-card">
+              <div class="num counter" data-counter data-to="500">0</div>
+              <div class="label">500+ Clients satisfaits</div>
+            </div>
+            <div class="stat-card">
+              <div class="num counter" data-counter data-to="10">0</div>
+              <div class="label">10+ Années d’expérience</div>
+            </div>
+            <div class="stat-card">
+              <div class="num counter" data-counter data-to="20">0</div>
+              <div class="label">20+ Quartiers couverts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOS ANNONCES -->
+    <section id="biens" aria-label="Nos annonces">
+      <div class="container">
+        <div class="section-title">
+          <h2>Biens Disponibles Aujourd'hui</h2>
+          <p>Données synchronisées avec l’admin</p>
+        </div>
+
+        <!-- Filtres annonces -->
+        <div class="ann-filterbar" aria-label="Filtres annonces">
+          <div>
+            <div class="filter-controls" style="margin-bottom:12px">
+              <button class="filter-btn active" type="button" data-filter-type="all">Tous</button>
+              <button class="filter-btn" type="button" data-filter-type="vente">Vente</button>
+              <button class="filter-btn" type="button" data-filter-type="location">Location</button>
+            </div>
+
+            <div class="search-row" style="max-width:900px; margin:0 auto">
+              <select class="select" id="filterArea" aria-label="Filtrer par quartier">
+                <option value="">Tous les quartiers</option>
+                <option>Bacongo</option>
+                <option>Makélékélé</option>
+                <option>Moungali</option>
+                <option>Ouenzé</option>
+                <option>Talangaï</option>
+                <option>Poto-Poto</option>
+                <option>Mfilou</option>
+                <option>Madibou</option>
+                <option>Centre-ville</option>
+                <option>Plateau des 15 ans</option>
+                <option>Gombe</option>
+                <option>Djiri</option>
+                <option>Mikalou</option>
+                <option>Kinsoundi</option>
+                <option>Nganga-Lingolo</option>
+              </select>
+
+              <div class="price-range" aria-label="Filtrer par prix">
+                <input class="input" id="filterMinPrice" type="number" min="0" placeholder="Prix min (XAF)" />
+                <input class="input" id="filterMaxPrice" type="number" min="0" placeholder="Prix max (XAF)" />
+              </div>
+
+              <button class="btn-search" type="button" id="btnSearchGold">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                Rechercher
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ann-counter" id="annCounter" style="display:none"></div>
+
+        <div class="ann-grid" data-announcements-grid></div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" aria-label="Services">
+      <div class="container">
+        <div class="section-title">
+          <h2>Nos Principaux Services</h2>
+          <p>Un accompagnement clair à chaque étape</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-house" aria-hidden="true"></i></div>
+            <h3>Vente de biens immobiliers</h3>
+            <p>Valorisation, mise en relation et suivi pour sécuriser vos échanges.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-key" aria-hidden="true"></i></div>
+            <h3>Location d’appartements et maisons</h3>
+            <p>Une sélection adaptée à votre budget et à votre quartier.</p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i></div>
+            <h3>Gestion & conseil immobilier</h3>
+            <p>Conseils, organisation des visites et accompagnement sur la durée.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-label="Contact">
+      <div class="container">
+        <div class="contact-wrap">
+          <div class="contact-card">
+            <h3>Contactez-nous</h3>
+            <div style="color:var(--muted); font-weight:800; font-size:14px; margin-bottom:12px">
+              Réponse rapide — vos demandes sont sauvegardées pour l’admin.
+            </div>
+
+            <div class="contact-lines">
+              <div class="contact-line">
+                <b><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Adresse</b>
+                <span>Avenue Marien Ngouabi, Brazzaville, Congo</span>
+              </div>
+              <div class="contact-line">
+                <b><i class="fa-solid fa-phone" aria-hidden="true"></i> Téléphone</b>
+                <span>+242 06 000 0000</span>
+              </div>
+              <div class="contact-line">
+                <b><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</b>
+                <span>contact@immocongo.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <h3>Envoyer un message</h3>
+            <form id="contactForm" autocomplete="on">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Nom</label>
+                  <input id="name" name="name" type="text" placeholder="Votre nom" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="ex: vous@email.com" required />
+                </div>
+                <div class="field">
+                  <label for="phone">Téléphone</label>
+                  <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="Ex: +242 ..." required />
+                </div>
+                <div class="field">
+                  <label for="area">Quartier (optionnel)</label>
+                  <select id="area" name="area">
+                    <option value="">Choisir...</option>
+                    <option>Bacongo</option>
+                    <option>Makélékélé</option>
+                    <option>Moungali</option>
+                    <option>Ouenzé</option>
+                    <option>Talangaï</option>
+                    <option>Poto-Poto</option>
+                    <option>Mfilou</option>
+                    <option>Madibou</option>
+                    <option>Centre-ville</option>
+                    <option>Plateau des 15 ans</option>
+                    <option>Gombe</option>
+                    <option>Djiri</option>
+                    <option>Mikalou</option>
+                    <option>Kinsoundi</option>
+                    <option>Nganga-Lingolo</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Décrivez votre besoin..." required></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                  Envoyer
+                </button>
+                <div class="form-hint">En envoyant, vous acceptez d’être recontacté par Immocongo.</div>
+              </div>
+
+              <div id="contactFormStatus" class="toast" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-label="Pied de page">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-top">
+          <div class="logo-mini" aria-hidden="true">
+            <img src="image Immocongo.jpeg" alt="" />
+          </div>
+          <div>
+            <b>Immocongo</b>
+            <div class="footer-slogan">Trouvez. Louez. Vivez Serein.</div>
+          </div>
+        </div>
+        <div style="color:var(--muted); font-weight:800; font-size:13px">Agence immobilière premium à Brazzaville</div>
+        <div style="color:var(--muted); font-weight:800; font-size:13px">Copyright © 2025 Immocongo</div>
+      </div>
+
+      <div class="footer-links" aria-label="Liens rapides">
+        <a href="#apropos">À propos</a>
+        <a href="#biens">Nos biens</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div>
+        <div class="footer-links" style="margin-bottom:10px">
+          <span style="color:var(--muted); font-weight:900; font-size:13px">Réseaux sociaux</span>
+        </div>
+        <div class="footer-social" aria-label="Réseaux sociaux">
+          <a href="#" onclick="return false" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" onclick="return false" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" onclick="return false" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" onclick="return false" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal détail annonce (plein écran) -->
+  <div class="modal-overlay" id="annModalOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-detail" role="document">
+      <div class="modal-gallery">
+        <div class="gallery-nav">
+          <button type="button" id="modalPrev" aria-label="Photo précédente">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button type="button" id="modalNext" aria-label="Photo suivante">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+        <img id="modalGalleryImg" src="" alt="" />
+      </div>
+
+      <div class="modal-body">
+        <button type="button" class="btn-modal-close modal-close-top" id="modalCloseTop" aria-label="Fermer">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <div class="badge-status available" id="modalStatusBadge">Disponible</div>
+        <h3 id="modalTitle">Titre</h3>
+        <div class="modal-meta" id="modalMeta">Type • Quartier • Prix</div>
+        <div class="modal-desc" id="modalDesc"></div>
+
+        <div class="modal-actions">
+          <a class="btn-whatsapp-modal" id="modalWhatsappBtn" href="#" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            Contacter par WhatsApp
+          </a>
+          <button type="button" class="btn-modal-close" id="modalCloseBtn">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp flottant -->
+  <a class="whatsapp-float" href="https://wa.me/242056145113" target="_blank" rel="noopener" aria-label="Contactez-nous sur WhatsApp" title="Contactez-nous sur WhatsApp">
+    <span class="pulse" aria-hidden="true">
+      <i class="fa-brands fa-whatsapp" style="font-size:22px" aria-hidden="true"></i>
+    </span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
