@@ -270,7 +270,10 @@ section{padding:72px 0}
 /* Announcements */
 .ann-grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
 @media (max-width: 980px){.ann-grid{grid-template-columns: repeat(2, 1fr)}}@media (max-width: 640px){.ann-grid{grid-template-columns: repeat(1, 1fr)}}
-.ann-card{background: var(--panel); border:1px solid var(--panel-border); border-radius: 12px; overflow:hidden; transition:.2s ease; display:flex; flex-direction:column; min-height:100%; box-shadow: 0 2px 15px rgba(0,0,0,0.1)}
+.ann-card{background: var(--panel); border:1.5px solid var(--panel-border); border-radius: 16px; overflow:hidden; transition:.2s ease; display:flex; flex-direction:column; min-height:100%; box-shadow: 0 4px 20px rgba(201, 168, 76, 0.18)}
+
+.ann-card:hover{transform: translateY(-3px); border-color: rgba(166,124,46,.75); box-shadow: 0 8px 30px rgba(201, 168, 76, 0.28)}
+
 .ann-card:hover{transform: translateY(-3px); border-color: rgba(166,124,46,.55)}
 .ann-thumb{height:190px; background: rgba(0,0,0,.04); border-bottom:1px solid rgba(232,217,181,.75); position:relative}
 .ann-thumb img{width:100%; height:100%; object-fit:cover}
@@ -502,23 +505,57 @@ input:focus, textarea:focus, select:focus{outline:3px solid var(--ring); border-
   .equipments-grid{grid-template-columns: repeat(2, 1fr)}
 }
 
-/* Fix responsive mobile - cartes une par ligne */
-@media (max-width: 640px){
-  .ann-grid{
-    grid-template-columns: 1fr !important;
-    gap: 16px;
+@media (max-width: 640px) {
+  .ann-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
     padding: 0 4px;
   }
-  .ann-card{width:100%;}
-  .ann-thumb{height:200px;}
-  .ann-body{padding:14px;}
-  .ann-quick-infos{gap:8px;}
-  .ann-quick-item{font-size:12px;}
-  .filter-controls{flex-direction:column; align-items:stretch;}
-  .filter-btn{text-align:center;}
-  .price-range{flex-direction:column;}
-  .price-range .input{width:100%; min-width: unset;}
+  .ann-thumb {
+    height: 140px;
+  }
+  .ann-body {
+    padding: 10px;
+    gap: 6px;
+  }
+  .ann-title {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .ann-desc {
+    font-size: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .ann-price {
+    font-size: 13px;
+  }
+  .ann-quick-infos {
+    gap: 4px;
+  }
+  .ann-quick-item {
+    font-size: 11px;
+  }
+  .ann-pill {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .filter-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .price-range {
+    flex-direction: column;
+  }
+  .price-range .input {
+    width: 100%;
+    min-width: unset;
+  }
 }
+
+
 
 .equipment-item{
   background: rgba(255,255,255,.06);
