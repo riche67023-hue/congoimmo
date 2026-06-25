@@ -529,7 +529,21 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
 
   function filterAnnonces(list) {
     const type = currentFilters.type;
-    const area = (currentFilters.area || '').trim();
+    let area = (currentFilters.area || '').trim();
+    // Harmoniser les valeurs exactes des quartiers (select UI)
+    const allowedAreas = [
+      'Centre-ville',
+      'Ouenzé',
+      'Moungali',
+      'Bacongo',
+      'Poto-Poto',
+      'Makélékélé',
+    ];
+    if (area) {
+      const match = allowedAreas.find((a) => a.toLowerCase() === area.toLowerCase());
+      area = match || area;
+    }
+
     const minPrice = normalizePrice(currentFilters.minPrice);
     const maxPrice = normalizePrice(currentFilters.maxPrice);
     const search = (currentFilters.search || '').trim().toLowerCase();
@@ -541,7 +555,12 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
         if (type === 'location' && annType !== 'location') return false;
       }
 
-      if (area && String(ann.area || '') !== area) return false;
+      if (area) {
+        const annArea = String(ann.area || '').trim();
+        if (!annArea) return false;
+        if (annArea.toLowerCase() !== area.toLowerCase()) return false;
+      }
+
 
       if (minPrice !== null) {
         const p = normalizePrice(ann.price);
@@ -567,8 +586,19 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
     els.annCounter.textContent = `${n} biens trouvés`;
   }
 
+  function formatXAF(price) {
+    const n = normalizePrice(price);
+    if (n === null) return '';
+    try {
+      return new Intl.NumberFormat('fr-FR').format(n);
+    } catch {
+      return String(n);
+    }
+  }
+
   function renderAnnouncements(list) {
     if (!els.grid) return;
+
     els.grid.innerHTML = '';
 
     if (!list.length) {
@@ -635,15 +665,17 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
             <div class="ann-quick-item"><i class="fa-solid fa-ruler-combined"></i><span>${escapeHtml(ann.surface ?? 0)} m²</span></div>
           </div>
 
-          <p class="ann-price">${escapeHtml(ann.price || '')} XAF</p>
+          <p class="ann-price">${formatXAF(ann.price)} XAF</p>
+
           <p class="ann-desc">${escapeHtml(String(ann.description || '').replaceAll('\n', ' ')).slice(0, 140)}${String(ann.description || '').length > 140 ? '…' : ''}</p>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-top:6px">
             <span class="ann-pill" style="background:${status.key === 'available' ? 'rgba(37,211,102,.14)' : status.key === 'reserved' ? 'rgba(253,126,20,.14)' : 'rgba(220,53,69,.14)'}; border-color:${status.key === 'available' ? 'rgba(37,211,102,.35)' : status.key === 'reserved' ? 'rgba(253,126,20,.35)' : 'rgba(220,53,69,.35)'}; color:#fff;">${escapeHtml(status.label)}</span>
-            <a href="#" class="btn btn-primary btn-sm" data-open-modal="${escapeHtml(ann.id)}">
+            <button type="button" class="btn btn-primary btn-sm" data-open-detail="${escapeHtml(ann.id)}">
               Voir détails
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-            </a>
+            </button>
+
           </div>
         </div>
       `;
@@ -651,12 +683,18 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
       els.grid.appendChild(card);
     });
 
-    qsa('[data-open-modal]', els.grid).forEach((btn) => {
+    // Navigation vers detail.html
+    qsa('[data-open-detail]', els.grid).forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        openModal(btn.getAttribute('data-open-modal'));
+        e.stopPropagation();
+        const id = btn.getAttribute('data-open-detail');
+        if (!id) return;
+        localStorage.setItem('immocongo_selected_property_id', id);
+        window.location.href = 'detail.html';
       });
     });
+
 
     // Favorites click
     qsa('.ann-action-btn.fav', els.grid).forEach((b) => {
@@ -770,11 +808,96 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
     if (e.key === 'Enter') els.heroSearchBtn?.click();
   });
 
-  // Load data
-  allAnnouncements = readJSON(STORAGE_ANNOUNCEMENTS, []);
+  // Load data (defaults + localStorage)
+  const DEFAULT_PROPERTIES = [
+    {
+      id: 'default_1',
+      title: 'Appartement Meublé 2 Chambres – Salon Moderne',
+      type: 'location',
+      area: 'Centre-ville',
+      price: '450 000',
+      description:
+        'Bel appartement meublé entièrement rénové, situé au cœur de Brazzaville. Spacieux salon, 2 chambres, cuisine équipée et salle de bain moderne.',
+      images: ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80'],
+      chambres: 2,
+      sallesDeBain: 1,
+      capacite: 4,
+      surface: 65,
+      status: 'Disponible',
+      equipements: ['wifi', 'climatisation', 'cuisine', 'tv'],
+    },
+    {
+      id: 'default_2',
+      title: 'Appartement Moderne – Chambre & Salon Élégant',
+      type: 'location',
+      area: 'Ouenzé',
+      price: '350 000',
+      description:
+        'Superbe appartement moderne entièrement meublé, idéal pour une personne seule ou un couple. Cadre calme et sécurisé.',
+      images: ['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80'],
+      chambres: 1,
+      sallesDeBain: 1,
+      capacite: 2,
+      surface: 45,
+      status: 'Disponible',
+      equipements: ['wifi', 'climatisation', 'cuisine'],
+    },
+    {
+      id: 'default_3',
+      title: 'Studio Cosy – Cadre Chaleureux & Lumineux',
+      type: 'location',
+      area: 'Moungali',
+      price: '280 000',
+      description:
+        'Charmant studio entièrement équipé, parfait pour une personne seule ou en déplacement professionnel.',
+      images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80'],
+      chambres: 1,
+      sallesDeBain: 1,
+      capacite: 1,
+      surface: 30,
+      status: 'Disponible',
+      equipements: ['wifi', 'tv'],
+    },
+    {
+      id: 'default_4',
+      title: 'Appartement Premium – Vue Dégagée & Design Haut de Gamme',
+      type: 'location',
+      area: 'Moungali',
+      price: '420 000',
+      description:
+        'Appartement haut de gamme avec finitions de qualité supérieure, idéal pour expatriés ou cadres supérieurs.',
+      images: ['https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80'],
+      chambres: 2,
+      sallesDeBain: 2,
+      capacite: 4,
+      surface: 80,
+      status: 'Disponible',
+      equipements: ['wifi', 'climatisation', 'parking', 'cuisine', 'tv', 'eauChaude'],
+    },
+    {
+      id: 'default_5',
+      title: 'Villa avec Jardin – Quartier Résidentiel',
+      type: 'vente',
+      area: 'Bacongo',
+      price: '25 000 000',
+      description:
+        'Belle villa avec jardin privatif dans un quartier résidentiel calme de Brazzaville. Idéale pour une famille.',
+      images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80'],
+      chambres: 4,
+      sallesDeBain: 2,
+      capacite: 8,
+      surface: 200,
+      status: 'Disponible',
+      equipements: ['wifi', 'climatisation', 'parking', 'piscine', 'cuisine', 'tv', 'electrogene'],
+    },
+  ];
+
+  const savedAnnouncements = readJSON(STORAGE_ANNOUNCEMENTS, []);
+  allAnnouncements = savedAnnouncements.length > 0 ? [...DEFAULT_PROPERTIES, ...savedAnnouncements] : DEFAULT_PROPERTIES;
   renderAnnouncements(allAnnouncements);
 
   // Contact form save
+
   const contactForm = qs('#contactForm');
   const contactStatus = qs('#contactFormStatus');
   if (contactForm) {

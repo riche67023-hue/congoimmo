@@ -501,6 +501,25 @@ input:focus, textarea:focus, select:focus{outline:3px solid var(--ring); border-
 @media (max-width: 640px){
   .equipments-grid{grid-template-columns: repeat(2, 1fr)}
 }
+
+/* Fix responsive mobile - cartes une par ligne */
+@media (max-width: 640px){
+  .ann-grid{
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 0 4px;
+  }
+  .ann-card{width:100%;}
+  .ann-thumb{height:200px;}
+  .ann-body{padding:14px;}
+  .ann-quick-infos{gap:8px;}
+  .ann-quick-item{font-size:12px;}
+  .filter-controls{flex-direction:column; align-items:stretch;}
+  .filter-btn{text-align:center;}
+  .price-range{flex-direction:column;}
+  .price-range .input{width:100%; min-width: unset;}
+}
+
 .equipment-item{
   background: rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.10);

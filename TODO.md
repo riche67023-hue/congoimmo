@@ -7,6 +7,8 @@
 
 - [ ] Valider grille biens 1/2/3 colonnes (déjà présent, confirmer)
 - [x] Vérifier dropdown hamburger mobile (aspect + accessibilité)
+- [x] Fix responsive mobile - cartes 1 colonne sur <640px (appliqué dans styles.css)
+
 
 
 
