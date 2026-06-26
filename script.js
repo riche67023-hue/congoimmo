@@ -676,6 +676,7 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </button>
 
+
           </div>
         </div>
       `;
@@ -690,10 +691,21 @@ if (modal.whatsappBtn) modal.whatsappBtn.href = `https://wa.me/242056145113?text
         e.stopPropagation();
         const id = btn.getAttribute('data-open-detail');
         if (!id) return;
-        localStorage.setItem('immocongo_selected_property_id', id);
-        window.location.href = 'detail.html';
+
+        // Stocker l'annonce complète pour detail.html
+        const ann = getAnnouncementById(id);
+        if (ann) {
+          localStorage.setItem('immocongo_selected_property', JSON.stringify(ann));
+          localStorage.setItem('immocongo_selected_property_id', id);
+        }
+
+        // Redirection (ID en paramètre URL)
+        window.location.href = `detail.html?id=${encodeURIComponent(id)}`;
       });
     });
+
+
+
 
 
     // Favorites click

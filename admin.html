@@ -6,11 +6,9 @@
   <title>Admin — Immocongo</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css" />
 
   <style>
@@ -55,7 +53,16 @@
       .announcements-grid{grid-template-columns: 1fr;}
     }
 
-    .announcement-card{background: var(--panel); border:1px solid #E8D9B5; border-radius: 12px; overflow:hidden; min-height: 220px; display:flex; flex-direction:column; box-shadow: 0 2px 15px rgba(0,0,0,0.1);}
+    .announcement-card{
+      background: var(--panel);
+      border:1px solid #E8D9B5;
+      border-radius: 12px;
+      overflow:hidden;
+      min-height: 220px;
+      display:flex;
+      flex-direction:column;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
 
     .admin-card-media{position:relative;}
     .admin-card-type-pill{position:absolute; left:12px; top:12px; z-index:2; padding:7px 10px; border-radius:999px; font-weight:900; font-size:12px; color:#fff; border:1px solid rgba(255,255,255,.18)}
@@ -66,9 +73,7 @@
     .announcement-card .thumb img{width:100%; height:100%; object-fit:cover}
 
     .admin-card-content{padding:12px 12px 14px; display:flex; flex-direction:column; gap:10px; flex:1}
-
     .announcement-card .announcement-title{margin:0; font-size:16px; font-weight:900;}
-
     .admin-card-line{display:flex; gap:10px; justify-content:space-between; align-items:center;}
     .admin-card-location{color: var(--muted); font-weight:900; font-size:13.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
     .admin-card-price{color: var(--text); font-weight:900; font-size:13.5px; white-space:nowrap}
@@ -77,15 +82,12 @@
     .admin-desc-2lines{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis}
 
     .admin-card-badges{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-
     .admin-card-status label{display:block; font-size:12px; color: rgba(107,107,107,1); font-weight:900; margin-bottom:6px}
     .admin-card-status select{width:100%; background: rgba(248,245,239,.85); border:1px solid rgba(232,217,181,.95); border-radius: 14px; padding:10px 12px; font-family:inherit; font-weight:800; color: var(--text)}
 
     .admin-card-actions{display:flex; gap:10px; flex-wrap:nowrap}
     .admin-card-actions .btn{flex:1; justify-content:center}
-
     .admin-card-actions .btn.secondary{flex:1; justify-content:center}
-
 
     .ann-pill{
       display:inline-flex; align-items:center;
@@ -97,6 +99,87 @@
     }
     .ann-pill.location{background: rgba(34,197,94,.16); border-color: rgba(34,197,94,.30)}
     .ann-pill.vente{background: rgba(26,86,255,.16); border-color: rgba(26,86,255,.30)}
+
+    /* ── Champs numériques 2 colonnes ── */
+    .fields-2col{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+
+    /* ── Equipements checkboxes ── */
+    .equip-grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:8px;
+      margin-top:6px;
+    }
+    .equip-item{
+      display:flex; align-items:center; gap:8px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:12px;
+      padding:9px 12px;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:800;
+      transition: background .15s;
+    }
+    .equip-item:hover{background: rgba(255,255,255,.08)}
+    .equip-item input[type="checkbox"]{
+      accent-color: var(--gold, #C9A84C);
+      width:16px; height:16px; cursor:pointer; flex-shrink:0;
+    }
+
+    /* ── Badge urgent ── */
+    .urgent-toggle{
+      display:flex; align-items:center; gap:10px;
+      background: rgba(255,80,40,.07);
+      border:1px solid rgba(255,80,40,.20);
+      border-radius:14px;
+      padding:12px 14px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:13.5px;
+    }
+    .urgent-toggle input[type="checkbox"]{
+      accent-color:#e53e3e;
+      width:17px; height:17px; cursor:pointer;
+    }
+
+    /* ── Pagination ── */
+    .pagination{display:flex; gap:8px; align-items:center; justify-content:center; margin-top:18px; flex-wrap:wrap}
+    .pagination button{
+      padding:8px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06); color:inherit; font-family:inherit;
+      font-weight:900; font-size:13px; cursor:pointer; transition: background .15s;
+    }
+    .pagination button:hover{background: rgba(255,255,255,.12)}
+    .pagination button.active{background: var(--gold, #C9A84C); border-color:transparent; color:#000}
+    .pagination button:disabled{opacity:.4; cursor:not-allowed}
+
+    /* ── Tri ── */
+    .sort-bar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px}
+    .sort-bar select{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:12px; padding:9px 12px;
+      font-family:inherit; font-weight:800; font-size:13px; color:inherit;
+    }
+    .sort-bar label{font-weight:900; font-size:13px; color:var(--muted)}
+
+    /* ── Favoris section ── */
+    .favoris-panel{margin-top:14px}
+    .favoris-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media(max-width:980px){.favoris-grid{grid-template-columns:1fr}}
+    .fav-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px; overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+    .fav-card img{width:100%; height:140px; object-fit:cover; display:block}
+    .fav-card-body{padding:12px; display:flex; flex-direction:column; gap:8px; flex:1}
+    .fav-card-title{margin:0; font-size:14px; font-weight:900}
+    .fav-card-price{font-weight:900; font-size:13px; color:var(--gold,#C9A84C)}
+    .fav-remove{background:rgba(220,53,69,.12); border:1px solid rgba(220,53,69,.25); color:inherit; border-radius:10px; padding:8px 12px; font-family:inherit; font-weight:900; font-size:12px; cursor:pointer}
+    .fav-remove:hover{background:rgba(220,53,69,.22)}
   </style>
 </head>
 <body>
@@ -105,11 +188,9 @@
       <a class="brand" href="index.html" aria-label="Retour au site">
         <div class="brand-logo" aria-hidden="true"><img src="image Immocongo.jpeg" alt="" /></div>
       </a>
-
       <div class="nav-right">
         <a class="btn btn-outline" href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Retour au site</a>
         <button class="btn btn-secondary" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Déconnexion</button>
-
         <button class="burger" type="button" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">
           <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
@@ -119,18 +200,18 @@
 
   <main class="admin-container">
     <div class="container">
+
+      <!-- LOGIN -->
       <section class="panel" id="loginPanel">
         <div class="login-logo"><img src="image Immocongo.jpeg" alt="" /></div>
         <h2 style="margin:0 0 8px">Espace administrateur</h2>
         <div class="fineprint" style="margin-bottom:14px">Connexion requise</div>
-
         <form id="loginForm">
           <div class="field">
             <label for="adminPassword">Mot de passe</label>
             <input id="adminPassword" type="password" required placeholder="Mot de passe" />
             <div class="fineprint" style="margin-top:8px">Mot de passe : <b>immocongo2025</b></div>
           </div>
-
           <div class="form-actions" style="margin-top:10px">
             <button class="btn btn-primary" type="submit"><i class="fa-solid fa-lock" aria-hidden="true"></i> Se connecter</button>
             <div id="loginStatus" class="fineprint" aria-live="polite"></div>
@@ -138,24 +219,29 @@
         </form>
       </section>
 
+      <!-- ADMIN PANEL -->
       <section class="hidden" id="adminPanel" style="margin-top:14px">
         <div class="section-title" style="margin-bottom:14px">
-          <h2>Gestion des annonces & messages</h2>
+          <h2>Gestion des annonces &amp; messages</h2>
           <p>localStorage partagé</p>
         </div>
 
         <div class="admin-grid">
+
+          <!-- FORMULAIRE ANNONCE -->
           <div class="panel">
             <h3 style="margin:0 0 10px">Ajouter / Modifier une annonce</h3>
 
             <form id="announcementForm">
               <input type="hidden" id="editId" />
 
+              <!-- Titre -->
               <div class="field">
                 <label for="annTitle">Titre du bien</label>
                 <input id="annTitle" required type="text" placeholder="Ex: Appartement 3 chambres" />
               </div>
 
+              <!-- Type -->
               <div class="field">
                 <label for="annType">Type</label>
                 <select id="annType" required>
@@ -164,11 +250,13 @@
                 </select>
               </div>
 
+              <!-- Description -->
               <div class="field">
                 <label for="annDesc">Description</label>
                 <textarea id="annDesc" required placeholder="Décrivez le bien..."></textarea>
               </div>
 
+              <!-- Quartier -->
               <div class="field">
                 <label for="annArea">Quartier</label>
                 <select id="annArea" required>
@@ -191,19 +279,120 @@
                 </select>
               </div>
 
+              <!-- Prix -->
               <div class="field">
                 <label for="annPrice">Prix en XAF</label>
                 <input id="annPrice" required type="text" placeholder="Ex: 50 000 000" />
               </div>
 
+              <!-- Adresse -->
               <div class="field">
-                <label for="annImageFiles">Choisir plusieurs images (max 10)</label>
+                <label for="formAdresse">Adresse / Localisation précise</label>
+                <input type="text" id="formAdresse" name="adresse" placeholder="Ex: Rue Auxence Ickonga, Centre-ville, Brazzaville" />
+              </div>
+
+              <!-- ══ CHAMPS MANQUANTS AJOUTÉS ══ -->
+
+              <!-- Chambres + SDB -->
+              <div class="fields-2col">
+                <div class="field">
+                  <label for="annChambres">
+                    <i class="fa-solid fa-bed" style="margin-right:5px; opacity:.7"></i>Chambres
+                  </label>
+                  <input id="annChambres" type="number" min="0" max="20" value="0" placeholder="Ex: 3" />
+                </div>
+                <div class="field">
+                  <label for="annSallesDeBain">
+                    <i class="fa-solid fa-bath" style="margin-right:5px; opacity:.7"></i>Salles de bain
+                  </label>
+                  <input id="annSallesDeBain" type="number" min="0" max="10" value="0" placeholder="Ex: 2" />
+                </div>
+              </div>
+
+              <!-- Capacité + Surface -->
+              <div class="fields-2col">
+                <div class="field">
+                  <label for="annCapacite">
+                    <i class="fa-solid fa-user-group" style="margin-right:5px; opacity:.7"></i>Capacité (personnes)
+                  </label>
+                  <input id="annCapacite" type="number" min="1" max="50" value="1" placeholder="Ex: 4" />
+                </div>
+                <div class="field">
+                  <label for="annSurface">
+                    <i class="fa-solid fa-ruler-combined" style="margin-right:5px; opacity:.7"></i>Surface (m²)
+                  </label>
+                  <input id="annSurface" type="number" min="0" max="10000" value="0" placeholder="Ex: 80" />
+                </div>
+              </div>
+
+              <!-- Note + Avis -->
+              <div class="fields-2col">
+                <div class="field">
+                  <label for="annNote">
+                    <i class="fa-solid fa-star" style="margin-right:5px; opacity:.7"></i>Note (0–10)
+                  </label>
+                  <input id="annNote" type="number" min="0" max="10" step="0.1" value="0" placeholder="Ex: 8.5" />
+                </div>
+                <div class="field">
+                  <label for="annNombreAvis">
+                    <i class="fa-regular fa-comment" style="margin-right:5px; opacity:.7"></i>Nombre d'avis
+                  </label>
+                  <input id="annNombreAvis" type="number" min="0" value="0" placeholder="Ex: 12" />
+                </div>
+              </div>
+
+              <!-- Badge URGENT -->
+              <div class="field">
+                <label class="urgent-toggle" for="annUrgent">
+                  <input type="checkbox" id="annUrgent" value="1" />
+                  <i class="fa-solid fa-fire" style="color:#e53e3e"></i>
+                  Marquer comme URGENT (badge rouge sur l'annonce)
+                </label>
+              </div>
+
+              <!-- Équipements -->
+              <div class="field">
+                <label>Équipements disponibles</label>
+                <div class="equip-grid" id="annEquipments">
+                  <label class="equip-item">
+                    <input type="checkbox" value="wifi" /> <i class="fa-solid fa-wifi"></i> WiFi / Internet
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="climatisation" /> <i class="fa-solid fa-snowflake"></i> Climatisation
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="parking" /> <i class="fa-solid fa-square-parking"></i> Parking
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="cuisine" /> <i class="fa-solid fa-utensils"></i> Cuisine équipée
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="tv" /> <i class="fa-solid fa-tv"></i> Télévision
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="piscine" /> <i class="fa-solid fa-person-swimming"></i> Piscine
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="electrogene" /> <i class="fa-solid fa-bolt"></i> Groupe électrogène
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="eauChaude" /> <i class="fa-solid fa-temperature-high"></i> Eau chaude
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="balcon" /> <i class="fa-solid fa-house-chimney"></i> Balcon/Terrasse
+                  </label>
+                  <label class="equip-item">
+                    <input type="checkbox" value="secheCheveux" /> <i class="fa-solid fa-wind"></i> Sèche-cheveux
+                  </label>
+                </div>
+              </div>
+
+              <!-- Images -->
+              <div class="field">
+                <label for="annImageFiles">Photos du bien (max 10)</label>
                 <input id="annImageFiles" type="file" accept="image/*" multiple />
-
                 <input type="hidden" id="annImagesDataUrl" />
-
-                <div class="fineprint" style="margin-top:8px">Les images sont converties en base64 et stockées dans localStorage. Taille max totale ~5MB.</div>
-
+                <div class="fineprint" style="margin-top:8px">Images converties en base64. Taille max totale ~5MB.</div>
                 <div style="margin-top:12px;">
                   <div class="fineprint" style="margin-bottom:6px">Prévisualisation :</div>
                   <div id="annImagesPreviewGrid" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;">
@@ -214,6 +403,7 @@
                 </div>
               </div>
 
+              <!-- Statut -->
               <div class="field">
                 <label for="annStatus">Statut de l'annonce</label>
                 <select id="annStatus" required>
@@ -223,31 +413,60 @@
                 </select>
               </div>
 
-              <div class="fineprint" style="margin-top:-6px; color:var(--muted); font-weight:850">Max 10 photos par annonce.</div>
-
               <div class="form-actions" style="margin-top:12px">
-                <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Enregistrer</button>
+                <button class="btn btn-primary" type="submit">
+                  <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Enregistrer
+                </button>
                 <button class="btn btn-outline" type="button" id="cancelEditBtn">Annuler</button>
                 <div id="formStatus" class="fineprint" aria-live="polite"></div>
               </div>
             </form>
           </div>
 
+          <!-- MESSAGES REÇUS -->
           <div class="panel">
             <h3 style="margin:0 0 10px">Messages reçus</h3>
-            <div class="fineprint" style="margin-bottom:12px">Ils apparaissent ici depuis le formulaire index.html</div>
+            <div class="fineprint" style="margin-bottom:12px">Depuis le formulaire contact</div>
             <div class="messages" id="messagesList" style="display:grid; gap:12px"></div>
           </div>
         </div>
 
+        <!-- ANNONCES LIST -->
         <div class="panel" style="margin-top:14px">
           <div class="section-title" style="margin:0 0 10px">
-            <h2 style="font-size:20px">Annonces</h2>
-            <p>Cliquez “Modifier” ou “Supprimer”</p>
+            <h2 style="font-size:20px">Annonces publiées</h2>
+            <p>Modifier ou supprimer ci-dessous</p>
           </div>
+
+          <!-- TRI -->
+          <div class="sort-bar">
+            <label for="adminSortSelect">Trier par :</label>
+            <select id="adminSortSelect">
+              <option value="recent">Plus récent</option>
+              <option value="oldest">Plus ancien</option>
+              <option value="price_asc">Prix croissant</option>
+              <option value="price_desc">Prix décroissant</option>
+              <option value="title_az">Titre A→Z</option>
+            </select>
+          </div>
+
           <div class="announcements-grid" id="announcementsGrid"></div>
           <div id="emptyState" class="fineprint" style="margin-top:12px">Aucune annonce pour le moment.</div>
+
+          <!-- PAGINATION -->
+          <div class="pagination" id="adminPagination"></div>
         </div>
+
+        <!-- FAVORIS -->
+        <div class="panel favoris-panel" id="favorisPanelAdmin">
+          <div class="section-title" style="margin:0 0 10px">
+            <h2 style="font-size:20px"><i class="fa-solid fa-heart" style="color:#e53e3e; margin-right:8px"></i>Mes Favoris</h2>
+            <p>Biens sauvegardés par les visiteurs (ce navigateur)</p>
+          </div>
+          <div class="favoris-grid" id="favorisGrid"></div>
+          <div id="favorisEmpty" class="fineprint" style="margin-top:10px; display:none">Aucun favori pour le moment.</div>
+        </div>
+
       </section>
     </div>
   </main>
@@ -255,4 +474,3 @@
   <script src="admin.js"></script>
 </body>
 </html>
-

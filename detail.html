@@ -6,331 +6,399 @@
   <title>Détail — Immocongo</title>
   <meta name="description" content="Détails du bien immobilier — Immocongo" />
 
-  <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" />
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    .detail-wrap{
-      padding-top:86px;
-      padding-bottom:56px;
-    }
-    .detail-grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:18px;
-      align-items:start;
-    }
-    @media (max-width: 900px){
-      .detail-grid{grid-template-columns:1fr}
-    }
-
-    .detail-panel{
-      background: rgba(255,255,255,.85);
-      border:1px solid rgba(232,217,181,.95);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:16px;
-    }
-
-    .detail-gallery{
-      background:#0F0F12;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(232,217,181,.20);
-    }
-    .detail-gallery img{
-      width:100%;
-      height:420px;
-      object-fit:cover;
-    }
-    @media (max-width: 640px){
-      .detail-gallery img{height:240px}
-    }
-
-    .detail-thumbs{
-      display:flex;
-      gap:10px;
-      padding:12px;
-      background: rgba(0,0,0,.25);
-      overflow:auto;
-    }
-    .detail-thumb{
-      width:88px;
-      height:60px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.18);
-      cursor:pointer;
-      opacity:.85;
-      object-fit:cover;
-    }
-    .detail-thumb.active{opacity:1; border-color: #C9A84C}
-
-    .urgent-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:900;
-      background: rgba(253,126,20,.14);
-      border: 1px solid rgba(253,126,20,.35);
-      color: #FFE9C7;
-      margin-bottom:12px;
-    }
-
-    .meta-line{
-      color: var(--muted);
-      font-weight:900;
-      font-size:14px;
-      margin:8px 0 10px;
-    }
-
-    .price-line{
-      font-weight:900;
-      font-size:22px;
-      margin:8px 0 14px;
+    .detail-page-title {
+      font-size: 26px;
+      font-weight: 900;
+      margin: 0 0 6px;
       color: var(--text);
+      letter-spacing: -.02em;
+    }
+    .detail-header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .price-highlight {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--gold);
+      margin: 12px 0 4px;
     }
 
-    .facts-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top:14px;
+    /* ── Galerie ── */
+    .detail-gallery-wrapper {
+      background: var(--bg-dark);
+      border-radius: var(--radius) var(--radius) 0 0;
+      overflow: hidden;
     }
-    @media (max-width: 640px){
-      .facts-grid{grid-template-columns:1fr}
+    .detail-gallery-main-img {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: var(--bg-dark);
     }
-    .fact{
-      background: rgba(248,245,239,.85);
-      border:1px solid rgba(232,217,181,.95);
-      border-radius: 16px;
-      padding:12px;
-    }
-    .fact b{display:block; color: var(--text); margin-bottom:4px}
-    .fact span{color: var(--muted); font-weight:800; font-size:13px}
+    @media (max-width: 640px) { .detail-gallery-main-img { height: 240px } }
 
-    .detail-desc{
+    #detailMainImg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-ctrl {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(13,27,42,.60);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .18s;
+      z-index: 5;
+    }
+    .gallery-ctrl:hover { background: rgba(13,27,42,.88) }
+    .gallery-ctrl.prev { left: 14px }
+    .gallery-ctrl.next { right: 14px }
+    .gallery-ctrl.hidden { display: none }
+
+    .photo-counter-badge {
+      position: absolute;
+      bottom: 14px; right: 14px;
+      background: rgba(13,27,42,.60);
+      color: #fff;
+      font-size: 12px; font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 8px;
+      z-index: 4;
+    }
+
+    /* ── Miniatures EN DEHORS de l'image principale ── */
+    .gallery-thumbs-row {
+      display: flex;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #f1f5f9;
+      overflow-x: auto;
+      border-radius: 0 0 var(--radius) var(--radius);
+      border: 1.5px solid var(--border);
+      border-top: none;
+      margin-bottom: 20px;
+    }
+    .gallery-thumbs-row::-webkit-scrollbar { height: 4px }
+    .gallery-thumbs-row::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); border-radius: 4px }
+
+    .g-thumb {
+      width: 80px; height: 58px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: .70;
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: .18s ease;
+    }
+    .g-thumb:hover { opacity: .95 }
+    .g-thumb.active { border-color: var(--accent); opacity: 1 }
+
+    /* ── Panel infos ── */
+    .detail-info-panel {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .detail-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .detail-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      background: var(--accent-lt);
+      color: var(--accent-dk);
+      border: 1px solid rgba(16,185,129,.25);
+    }
+    .detail-pill.area {
+      background: var(--panel-2);
       color: var(--muted);
-      font-weight:750;
-      line-height:1.7;
-      white-space:pre-wrap;
-      margin-top:10px;
+      border-color: var(--border);
     }
-
-    .actions-stack{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-
-    .btn-back{
-      background: transparent;
-      border:1px solid var(--accent);
-      color: var(--accent);
+    .urgent-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      background: rgba(239,68,68,.10);
+      color: #dc2626;
+      border: 1px solid rgba(239,68,68,.25);
     }
-    .btn-back:hover{background: var(--accent); color:#fff}
-
-    .btn-whatsapp{
-      background: #25D366;
-      border:1px solid rgba(255,255,255,.18);
-      color:#fff;
-      box-shadow:0 0 20px rgba(37,211,102,0.35);
-    }
-
-    .btn-whatsapp:hover{filter: brightness(1.02)}
-
-    .gallery-empty{
-      height:420px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color: rgba(255,255,255,.7);
-      font-weight:900;
-    }
-    @media (max-width: 640px){.gallery-empty{height:240px}}
   </style>
 </head>
 <body>
+
   <header class="site-header" id="siteHeader">
     <div class="container nav-inner">
-      <a class="brand" href="index.html#biens" aria-label="Retour">
-        <div class="brand-logo" aria-hidden="true"><img src="image Immocongo.jpeg" alt="" /></div>
+      <a class="brand" href="index.html#biens" aria-label="Retour à la liste">
+        <div class="brand-logo"><img src="image Immocongo.jpeg" alt="" /></div>
       </a>
       <div class="nav-right">
-        <a class="btn btn-outline" href="index.html#biens"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Retour</a>
+        <a class="btn btn-outline" href="index.html#biens">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          Retour
+        </a>
       </div>
     </div>
   </header>
 
   <main class="detail-wrap">
     <div class="container">
+
+      <!-- Message erreur -->
       <div id="detailTopMsg" class="fineprint" style="margin-bottom:12px; display:none"></div>
 
-      <div class="detail-grid">
-        <section class="detail-gallery" aria-label="Galerie du bien">
-          <div id="detailGalleryEmpty" class="gallery-empty" style="display:none">
-            Image indisponible
-          </div>
-          <img id="detailMainImg" src="" alt="" style="display:none" />
-          <div id="detailThumbs" class="detail-thumbs" style="display:none"></div>
-        </section>
+      <!-- ── GALERIE ── -->
+      <div id="gallerySection">
 
-        <aside class="detail-panel" aria-label="Détails">
-          <div id="urgentBadgeWrap" style="display:none">
-            <div class="urgent-badge"><i class="fa-solid fa-bolt" aria-hidden="true"></i> URGENT</div>
-          </div>
+        <!-- Image principale SEULEMENT -->
+        <div class="detail-gallery-wrapper">
+          <div class="detail-gallery-main-img" id="mainImgWrap">
 
-          <h1 id="detailTitle" style="margin:0; font-size:26px; letter-spacing:-.01em"></h1>
-          <div class="meta-line" id="detailMeta"></div>
-          <div class="price-line" id="detailPrice"></div>
-
-          <div class="facts-grid">
-            <div class="fact"><b><i class="fa-solid fa-bed" aria-hidden="true"></i> Chambres</b><span id="detailChambres">—</span></div>
-            <div class="fact"><b><i class="fa-solid fa-bath" aria-hidden="true"></i> Salles de bain</b><span id="detailSdb">—</span></div>
-            <div class="fact"><b><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i> Surface</b><span id="detailSurface">—</span></div>
-            <div class="fact"><b><i class="fa-solid fa-user-group" aria-hidden="true"></i> Capacité</b><span id="detailCap">—</span></div>
-          </div>
-
-          <div style="margin-top:14px">
-            <div class="section-title" style="margin:0 0 10px">
-              <h2 style="font-size:18px; margin:0">Description</h2>
+            <div id="detailGalleryEmpty" class="gallery-empty" style="display:none">
+              <i class="fa-solid fa-image" style="font-size:48px; margin-bottom:10px; opacity:.4"></i>
+              <span>Aucune photo disponible</span>
             </div>
-            <div class="detail-desc" id="detailDesc"></div>
-          </div>
 
-          <div class="actions-stack">
-            <a id="btnWhatsAppInfo" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener">
-              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Contacter via WhatsApp
-            </a>
-            <a id="btnWhatsAppVisit" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener">
-              <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Demander une visite
-            </a>
-            <a class="btn btn-back" href="index.html#biens">
-              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Retour à la liste
-            </a>
+            <img id="detailMainImg" src="" alt="" style="display:none" />
+
+            <button class="gallery-ctrl prev hidden" id="galleryPrev" aria-label="Photo précédente">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="gallery-ctrl next hidden" id="galleryNext" aria-label="Photo suivante">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <div class="photo-counter-badge hidden" id="photoCounter">1 / 1</div>
           </div>
-        </aside>
+        </div>
+        <!-- FIN image principale -->
+
+        <!-- Miniatures EN DEHORS et EN DESSOUS de l'image principale -->
+        <div id="detailThumbs" class="gallery-thumbs-row" style="display:none"></div>
+
       </div>
+      <!-- FIN galerie -->
+
+      <!-- ── PANEL INFOS ── -->
+      <div class="detail-info-panel">
+
+        <div class="detail-meta-row" id="detailMetaRow"></div>
+
+        <h1 class="detail-page-title" id="detailTitle"></h1>
+
+        <div class="price-highlight" id="detailPrice"></div>
+
+        <div class="facts-grid">
+          <div class="fact">
+            <b><i class="fa-solid fa-bed"></i> Chambres</b>
+            <span id="detailChambres">—</span>
+          </div>
+          <div class="fact">
+            <b><i class="fa-solid fa-bath"></i> Salles de bain</b>
+            <span id="detailSdb">—</span>
+          </div>
+          <div class="fact">
+            <b><i class="fa-solid fa-ruler-combined"></i> Surface</b>
+            <span id="detailSurface">—</span>
+          </div>
+          <div class="fact">
+            <b><i class="fa-solid fa-user-group"></i> Capacité</b>
+            <span id="detailCap">—</span>
+          </div>
+        </div>
+
+        <div style="margin-top:20px">
+          <h2 style="font-size:18px; font-weight:800; margin:0 0 10px">Description</h2>
+          <div class="detail-desc" id="detailDesc"></div>
+        </div>
+
+        <div class="actions-stack">
+          <a id="btnWhatsAppInfo" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i>
+            Contacter via WhatsApp
+          </a>
+          <a id="btnWhatsAppVisit" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-calendar-check"></i>
+            Demander une visite
+          </a>
+          <a class="btn btn-back" href="index.html#biens">
+            <i class="fa-solid fa-arrow-left"></i>
+            Retour à la liste
+          </a>
+        </div>
+      </div>
+
     </div>
   </main>
 
   <script>
     (() => {
-      const STORAGE_ANNOUNCEMENTS = 'immocongo_announcements';
-      const STORAGE_SELECTED_ID = 'immocongo_selected_property_id';
+      const STORAGE_ANNOUNCEMENTS      = 'immocongo_announcements';
+      const STORAGE_SELECTED_ID        = 'immocongo_selected_property_id';
+      const STORAGE_SELECTED_PROPERTY  = 'immocongo_selected_property';
 
-      const qs = (sel) => document.querySelector(sel);
-      const readJSON = (key, fallback) => {
-        try {
-          const raw = localStorage.getItem(key);
-          if (!raw) return fallback;
-          return JSON.parse(raw);
-        } catch {
-          return fallback;
-        }
+      const qs = (s) => document.querySelector(s);
+
+      const readJSON = (key, fb) => {
+        try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fb }
+        catch { return fb }
       };
 
-      const normalizePrice = (v) => {
+      const formatXAF = (v) => {
         const n = Number(String(v || '').replace(/[^0-9.]/g, ''));
-        return Number.isFinite(n) ? n : null;
+        if (!Number.isFinite(n)) return '';
+        try { return new Intl.NumberFormat('fr-FR').format(n) } catch { return String(n) }
       };
 
-      const formatXAF = (price) => {
-        const n = normalizePrice(price);
-        if (n === null) return '';
-        try {
-          return new Intl.NumberFormat('fr-FR').format(n);
-        } catch {
-          return String(n);
+      const getProperty = () => {
+        const stored = localStorage.getItem(STORAGE_SELECTED_PROPERTY);
+        if (stored) { try { return JSON.parse(stored) } catch {} }
+
+        const id = localStorage.getItem(STORAGE_SELECTED_ID)
+                || new URLSearchParams(window.location.search).get('id')
+                || '';
+        if (id) {
+          const all = readJSON(STORAGE_ANNOUNCEMENTS, []);
+          return all.find((x) => String(x.id) === String(id)) || null;
         }
+        return null;
       };
 
-      const getId = () => localStorage.getItem(STORAGE_SELECTED_ID) || '';
-
-      const id = getId();
-      const msgEl = qs('#detailTopMsg');
-      if (!id) {
-        msgEl.style.display = 'block';
-        msgEl.textContent = "Aucun bien sélectionné.";
-        return;
-      }
-
-      const all = readJSON(STORAGE_ANNOUNCEMENTS, []);
-      const ann = (all || []).find((x) => String(x.id) === String(id));
-
+      const ann = getProperty();
       if (!ann) {
-        msgEl.style.display = 'block';
-        msgEl.textContent = "Bien introuvable.";
+        const m = qs('#detailTopMsg');
+        m.style.display = 'block';
+        m.textContent = 'Bien introuvable.';
         return;
       }
 
-      const setText = (sel, v) => {
-        const el = qs(sel);
-        if (!el) return;
-        el.textContent = v;
-      };
-
+      /* ── Galerie ── */
       const images = Array.isArray(ann.images) && ann.images.length ? ann.images : [];
-      const mainImg = qs('#detailMainImg');
-      const empty = qs('#detailGalleryEmpty');
-      const thumbs = qs('#detailThumbs');
+      const mainImg   = qs('#detailMainImg');
+      const emptyBox  = qs('#detailGalleryEmpty');
+      const thumbsRow = qs('#detailThumbs');
+      const prevBtn   = qs('#galleryPrev');
+      const nextBtn   = qs('#galleryNext');
+      const counter   = qs('#photoCounter');
+
+      let currentIdx = 0;
+
+      const goTo = (idx) => {
+        if (!images.length) return;
+        currentIdx = (idx + images.length) % images.length;
+        mainImg.src = images[currentIdx];
+        counter.textContent = `${currentIdx + 1} / ${images.length}`;
+        thumbsRow.querySelectorAll('.g-thumb').forEach((t, i) => {
+          t.classList.toggle('active', i === currentIdx);
+        });
+      };
 
       if (images.length) {
-        mainImg.src = images[0];
         mainImg.style.display = 'block';
-        thumbs.style.display = 'flex';
-        thumbs.innerHTML = '';
-        images.slice(0, 10).forEach((src, idx) => {
-          const im = document.createElement('img');
-          im.src = src;
-          im.alt = 'Photo ' + (idx + 1);
-          im.className = 'detail-thumb' + (idx === 0 ? ' active' : '');
-          im.addEventListener('click', () => {
-            thumbs.querySelectorAll('.detail-thumb').forEach((t) => t.classList.remove('active'));
-            im.classList.add('active');
-            mainImg.src = src;
+        emptyBox.style.display = 'none';
+
+        if (images.length > 1) {
+          prevBtn.classList.remove('hidden');
+          nextBtn.classList.remove('hidden');
+          counter.classList.remove('hidden');
+          thumbsRow.style.display = 'flex';
+
+          prevBtn.addEventListener('click', () => goTo(currentIdx - 1));
+          nextBtn.addEventListener('click', () => goTo(currentIdx + 1));
+
+          images.slice(0, 12).forEach((src, i) => {
+            const t = document.createElement('img');
+            t.src = src;
+            t.alt = `Photo ${i + 1}`;
+            t.className = 'g-thumb' + (i === 0 ? ' active' : '');
+            t.addEventListener('click', () => goTo(i));
+            thumbsRow.appendChild(t);
           });
-          thumbs.appendChild(im);
-        });
+        }
+
+        goTo(0);
       } else {
-        empty.style.display = 'flex';
+        emptyBox.style.display = 'flex';
+        mainImg.style.display = 'none';
       }
 
+      /* ── Méta badges ── */
+      const metaRow = qs('#detailMetaRow');
       const typeLabel = ann.type === 'location' ? 'Location' : 'Vente';
-      setText('#detailTitle', ann.title || '—');
-      setText('#detailMeta', `${ann.area || ''} • ${typeLabel}`.trim());
-      setText('#detailPrice', ann.price ? `${formatXAF(ann.price)} XAF` : '');
 
-      setText('#detailChambres', ann.chambres ?? 0);
-      setText('#detailSdb', ann.sallesDeBain ?? 0);
-      setText('#detailSurface', `${ann.surface ?? 0} m²`);
-      setText('#detailCap', ann.capacite ?? 0);
+      const makeEl = (html) => {
+        const d = document.createElement('div');
+        d.innerHTML = html;
+        return d.firstChild;
+      };
 
-      qs('#detailDesc').textContent = ann.description || '';
+      metaRow.appendChild(makeEl(
+        `<span class="detail-pill"><i class="fa-solid fa-tag"></i>${typeLabel}</span>`
+      ));
+      if (ann.area) {
+        metaRow.appendChild(makeEl(
+          `<span class="detail-pill area"><i class="fa-solid fa-location-dot"></i>${ann.area}</span>`
+        ));
+      }
+      if (ann.urgent === true) {
+        metaRow.appendChild(makeEl(
+          `<span class="urgent-pill"><i class="fa-solid fa-bolt"></i>URGENT</span>`
+        ));
+      }
 
-      // URGENT badge
-      const urgentWrap = qs('#urgentBadgeWrap');
-      urgentWrap && (urgentWrap.style.display = ann.urgent === true ? 'block' : 'none');
+      /* ── Infos texte ── */
+      qs('#detailTitle').textContent    = ann.title || '—';
+      qs('#detailPrice').textContent    = ann.price ? `${formatXAF(ann.price)} XAF` : '';
+      qs('#detailChambres').textContent = ann.chambres     ?? '—';
+      qs('#detailSdb').textContent      = ann.sallesDeBain ?? '—';
+      qs('#detailSurface').textContent  = ann.surface ? `${ann.surface} m²` : '—';
+      qs('#detailCap').textContent      = ann.capacite     ?? '—';
+      qs('#detailDesc').textContent     = ann.description  || '';
 
-      // WhatsApp buttons
-      const whatsappNumber = '+242056145113';
-      const titre = ann.title || '';
+      /* ── WhatsApp ── */
       const priceText = ann.price ? `${formatXAF(ann.price)} XAF` : '';
-      const baseMsg = `Bonjour, je souhaite plus d’informations sur : ${titre}. ${priceText}`.trim();
+      const baseMsg   = `Bonjour, je souhaite plus d'informations sur : ${ann.title || ''}. ${priceText}`.trim();
+      const visitMsg  = `Bonjour, je souhaite demander une visite pour : ${ann.title || ''}. (${ann.area || ''} — ${typeLabel})`;
 
-      const waInfo = `https://wa.me/242056145113?text=${encodeURIComponent(baseMsg)}`;
-      const waVisit = `https://wa.me/242056145113?text=${encodeURIComponent(`Bonjour, je souhaite demander une visite pour : ${titre}. (${ann.area || ''} — ${typeLabel})`)}`;
-
-      const btnInfo = qs('#btnWhatsAppInfo');
-      const btnVisit = qs('#btnWhatsAppVisit');
-      if (btnInfo) btnInfo.href = waInfo;
-      if (btnVisit) btnVisit.href = waVisit;
+      const btnI = qs('#btnWhatsAppInfo');
+      const btnV = qs('#btnWhatsAppVisit');
+      if (btnI) btnI.href = `https://wa.me/242056145113?text=${encodeURIComponent(baseMsg)}`;
+      if (btnV) btnV.href = `https://wa.me/242056145113?text=${encodeURIComponent(visitMsg)}`;
     })();
   </script>
 </body>
 </html>
-
